@@ -1,0 +1,29 @@
+pipelines:
+  "omnisharp-vscode":
+    group: stcdev
+    label_template: "${git[:8]}"
+    materials:
+      git:
+        git: git@github.com:ai-traders/omnisharp-vscode.git
+        branch: ait
+    stages:
+      - build:
+          clean_workspace: true
+          jobs:
+            "build":
+              elastic_profile_id: w.c2.m2048.e10
+              artifacts:
+                - build:
+                    source: "csharp.*-linux-x86_64.vsix"
+                    destination: pkg
+              tasks:
+               - exec:
+                   command: bash
+                   arguments:
+                    - -c
+                    - ./tasks.sh build
+               - exec:
+                   command: bash
+                   arguments:
+                    - -c
+                    - ./tasks.sh publish

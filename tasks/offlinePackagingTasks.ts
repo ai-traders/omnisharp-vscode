@@ -38,21 +38,21 @@ gulp.task('vsix:offline:package', async () => {
 
 async function doPackageOffline() {
     if (commandLineOptions.retainVsix) {
-        //if user doesnot want to clean up the existing vsix packages	
+        //if user doesnot want to clean up the existing vsix packages
         cleanSync(false);
     }
     else {
         cleanSync(true);
     }
-    
+
     const packageJSON = getPackageJSON();
     const name = packageJSON.name;
     const version = packageJSON.version;
     const packageName = name + '.' + version;
 
     const packages = [
-        new PlatformInformation('win32', 'x86_64'),
-        new PlatformInformation('darwin', 'x86_64'),
+        // new PlatformInformation('win32', 'x86_64'),
+        // new PlatformInformation('darwin', 'x86_64'),
         new PlatformInformation('linux', 'x86_64')
     ];
 
